@@ -1,0 +1,333 @@
+AUTHENTICATION SYSTEM - FLOW DIAGRAM
+═════════════════════════════════════════════════════════════════════════════
+
+INITIALIZATION FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   App Start
+      ↓
+   RootLayout (src/app/layout.tsx)
+      ↓
+   <AuthProvider> wraps app
+      ↓
+   AuthContext initializes
+      ↓
+   useEffect: Load user from localStorage
+      ↓
+   Set isAuthenticated, user state
+      ↓
+   App renders with auth state
+
+───────────────────────────────────────────────────────────────────────────────
+
+LOGIN FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   User visits /auth/login
+      ↓
+   Sees three options:
+   ├─ Manual email/password form
+   ├─ Click demo account button
+   └─ Link to signup page
+      ↓
+   User submits email + password
+      ↓
+   login() function called
+      ↓
+   Search DEMO_ACCOUNTS for match
+      ↓
+   ├─ No match → Show error message
+   │
+   └─ Match found → 
+      ├─ Set user state
+      ├─ Save to localStorage
+      └─ Redirect to homepage
+      ↓
+   Header updates to show user avatar
+   and dropdown menu
+
+
+SIGNUP FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   User visits /auth/signup
+      ↓
+   Fills registration form:
+   ├─ Name (required)
+   ├─ Email (required, validated)
+   ├─ Password (required, 6+ chars)
+   ├─ Confirm password (must match)
+   ├─ Location (required)
+   ├─ Phone (optional)
+   ├─ Seller toggle (optional)
+   └─ Terms acceptance (required)
+      ↓
+   Client-side validation
+      ↓
+   ├─ Validation fails → Show field errors
+   │
+   └─ Validation passes →
+      ├─ signup() function called
+      ├─ Check email not already used
+      ├─ Create new user object
+      ├─ Add to DEMO_ACCOUNTS array
+      ├─ Set user state
+      ├─ Save to localStorage
+      └─ Redirect to homepage
+      ↓
+   User automatically logged in
+   Ready to use account
+
+
+PROFILE FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   User visits /auth/profile
+      ↓
+   Check authentication:
+   ├─ Not authenticated → Redirect to /auth/login
+   │
+   └─ Authenticated →
+      ├─ Load user from context
+      ├─ Display profile card
+      ├─ Show user information
+      └─ Show edit button
+      ↓
+   User clicks "Edit Profile"
+      ↓
+   Form becomes editable:
+   ├─ Name field
+   ├─ Phone field
+   ├─ Location field
+   └─ Bio field
+      ↓
+   User makes changes
+      ↓
+   User clicks "Save Changes"
+      ↓
+   updateProfile() called
+      ↓
+   ├─ Simulate API delay
+   ├─ Update user state
+   ├─ Save to localStorage
+   ├─ Show success notification
+   └─ Return to view mode
+      ↓
+   Changes persist on refresh
+
+
+HEADER INTEGRATION FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   Header component renders
+      ↓
+   Check isAuthenticated from useAuth()
+      ↓
+   ├─ NOT AUTHENTICATED:
+   │  ├─ Desktop: Show "Sign In" | "Sign Up" buttons
+   │  └─ Mobile: Show "Sign Up" button only
+   │
+   └─ AUTHENTICATED:
+      ├─ Desktop:
+      │  ├─ Show avatar with initials
+      │  ├─ Show first name
+      │  └─ Dropdown toggle
+      │
+      ├─ Mobile:
+      │  ├─ Show avatar with initials
+      │  └─ Hamburger menu
+      │
+      └─ Dropdown menu contains:
+         ├─ User info section
+         ├─ My Profile link
+         ├─ My Wishlist link
+         ├─ Seller Dashboard (if isSeller)
+         └─ Sign Out button
+      ↓
+   Click avatar/menu → Toggle dropdown
+      ↓
+   Click any link → Close dropdown, navigate
+      ↓
+   Click "Sign Out" → 
+      ├─ logout() called
+      ├─ Clear user state
+      ├─ Remove from localStorage
+      ├─ Header re-renders
+      └─ Redirect to homepage
+
+───────────────────────────────────────────────────────────────────────────────
+
+LOGOUT FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   User clicks "Sign Out"
+   (From /auth/profile or header dropdown)
+      ↓
+   logout() function called
+      ↓
+   ├─ Clear user state (setUser(null))
+   ├─ Remove from localStorage
+   ├─ isAuthenticated → false
+   └─ Header updates
+      ↓
+   Redirect to homepage
+      ↓
+   Header now shows login/signup buttons
+
+
+DATA PERSISTENCE FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   User logs in / signs up / updates profile
+      ↓
+   User data saved to localStorage
+   (user object as JSON string)
+      ↓
+   User closes browser / navigates away
+      ↓
+   User returns later
+      ↓
+   App initializes
+      ↓
+   useEffect in AuthContext:
+      ├─ Read localStorage
+      ├─ Parse JSON
+      ├─ Restore user state
+      └─ User automatically logged in!
+      ↓
+   No login needed
+   All data persists
+
+
+SELLER ROLE FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   User during signup:
+      ├─ Doesn't toggle "Register as Seller"
+      │  └─ isSeller = false (regular buyer)
+      │
+      └─ Toggles "Register as Seller"
+         └─ isSeller = true (seller)
+      ↓
+   Account created with isSeller flag
+      ↓
+   Header checks isSeller:
+      ├─ false: No "Seller Dashboard" link
+      └─ true: Shows "Seller Dashboard" link in dropdown
+      ↓
+   Profile page checks isSeller:
+      ├─ false: No dashboard card
+      └─ true: Shows dashboard card with link
+
+
+VALIDATION FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   User types in form field
+      ↓
+   onChange event fires
+      ↓
+   Update form state
+      ↓
+   If field had error, clear it
+      ↓
+   User continues typing or blurs field
+      ↓
+   User submits form
+      ↓
+   Validate all fields:
+      ├─ Email format check
+      ├─ Required fields check
+      ├─ Password length check
+      ├─ Password match check (signup)
+      ├─ Terms accepted (signup)
+      └─ Return object with all errors
+      ↓
+   If errors exist:
+      ├─ Don't submit
+      ├─ Display all errors
+      └─ Highlight fields
+      ↓
+   If no errors:
+      ├─ Submit form
+      ├─ Call auth function
+      └─ Handle response
+
+───────────────────────────────────────────────────────────────────────────────
+
+STATE MANAGEMENT HIERARCHY:
+═════════════════════════════════════════════════════════════════════════════
+
+   Window.localStorage
+   ("auth_user" key)
+          ↓
+          ↓ (hydrated into)
+          ↓
+   AuthContext.user
+   AuthContext.isAuthenticated
+          ↓
+          ↓ (consumed by)
+          ↓
+   Header component
+   Profile page
+   Any other component using useAuth()
+          ↓
+          ↓ (which can trigger)
+          ↓
+   updateProfile()
+   login()
+   signup()
+   logout()
+          ↓
+          ↓ (which update)
+          ↓
+   localStorage again
+
+───────────────────────────────────────────────────────────────────────────────
+
+ERROR HANDLING FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   Function called (login, signup, etc)
+      ↓
+   Try block:
+      ├─ Validate inputs
+      ├─ Check conditions (email exists, etc)
+      ├─ Perform operation
+      └─ Return success
+      ↓
+   Catch block:
+      ├─ Set error state
+      ├─ Display to user
+      └─ Allow retry
+      ↓
+   User sees:
+   ├─ Field-level error messages
+   ├─ Form-level error alerts
+   └─ Helpful error text
+
+
+RESPONSIVE DESIGN FLOW:
+═════════════════════════════════════════════════════════════════════════════
+
+   Desktop (1024px+):
+      ├─ Full width forms (max-w-md)
+      ├─ 2 column layouts where applicable
+      ├─ Hover effects on buttons
+      ├─ Dropdown menus
+      └─ Header shows all options
+      
+   Tablet (768px - 1023px):
+      ├─ Responsive padding
+      ├─ Touch-friendly buttons
+      ├─ Mobile menu for nav
+      └─ Single column forms
+      
+   Mobile (<768px):
+      ├─ Full width with padding
+      ├─ Hamburger menu for nav
+      ├─ Large touch targets (44px)
+      ├─ Stacked form fields
+      └─ Simplified header
+
+═════════════════════════════════════════════════════════════════════════════

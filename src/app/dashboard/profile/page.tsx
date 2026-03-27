@@ -67,7 +67,7 @@ export default function ProfilePage() {
       )}
 
       {/* Profile Form */}
-      <div className="rounded-lg bg-white shadow-sm">
+      <div className="rounded-xl bg-white shadow-sm border border-neutral-100">
         {/* Profile Photo Section */}
         <div className="border-b border-neutral-200 px-6 py-6">
           <h2 className="mb-4 text-lg font-semibold text-neutral-900">Profile Photo</h2>
@@ -80,7 +80,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className="flex-1">
-              <button className="flex items-center gap-2 rounded-lg border border-neutral-300 px-4 py-2 font-medium text-neutral-700 transition-colors hover:bg-neutral-50">
+              <button className="flex items-center gap-2 rounded-lg border border-primary-300 px-4 py-2 font-medium text-primary-600 transition-colors hover:bg-primary-50">
                 <Upload className="h-4 w-4" />
                 Upload Photo
               </button>
@@ -100,7 +100,7 @@ export default function ProfilePage() {
                 name="businessName"
                 value={formData.businessName}
                 onChange={handleChange}
-                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-secondary-500 focus:outline-none"
+                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-primary-500 focus:outline-none"
               />
             </div>
 
@@ -111,7 +111,7 @@ export default function ProfilePage() {
                 value={formData.bio}
                 onChange={handleChange}
                 rows={4}
-                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-secondary-500 focus:outline-none"
+                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-primary-500 focus:outline-none"
               />
               <p className="mt-1 text-xs text-neutral-500">{formData.bio.length} / 500 characters</p>
             </div>
@@ -123,7 +123,7 @@ export default function ProfilePage() {
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-secondary-500 focus:outline-none"
+                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-primary-500 focus:outline-none"
               />
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function ProfilePage() {
             ))}
             <button
               onClick={handleAddSpecialty}
-              className="rounded-lg border border-secondary-300 px-4 py-2 font-medium text-secondary-600 transition-colors hover:bg-secondary-50"
+              className="rounded-lg border border-primary-300 px-4 py-2 font-medium text-primary-600 transition-colors hover:bg-primary-50"
             >
               + Add Specialty
             </button>
@@ -170,7 +170,7 @@ export default function ProfilePage() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-secondary-500 focus:outline-none"
+                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-primary-500 focus:outline-none"
               />
             </div>
 
@@ -181,7 +181,7 @@ export default function ProfilePage() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-secondary-500 focus:outline-none"
+                className="mt-2 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:border-primary-500 focus:outline-none"
               />
             </div>
           </div>
@@ -205,7 +205,7 @@ export default function ProfilePage() {
         <div className="border-t border-neutral-200 px-6 py-6">
           <button
             onClick={handleSave}
-            className="rounded-lg bg-secondary-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-secondary-700"
+            className="rounded-lg bg-primary-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-primary-700"
           >
             Save Changes
           </button>

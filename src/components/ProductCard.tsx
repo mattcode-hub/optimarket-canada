@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Heart, MapPin, Clock, BadgeCheck } from 'lucide-react';
 import { Listing } from '@/types';
 import { useWishlist } from '@/context/WishlistContext';
+import CompareButton from './CompareButton';
 
 interface ProductCardProps {
   listing: Listing;
@@ -81,23 +82,26 @@ export default function ProductCard({ listing }: ProductCardProps) {
             </div>
           )}
 
-          {/* Wishlist Button */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              toggleWishlist(listing.id);
-            }}
-            className="absolute bottom-3 right-3 rounded-full bg-white p-2 shadow-md transition-all hover:bg-neutral-50"
-            aria-label="Add to wishlist"
-          >
-            <Heart
-              className={`h-5 w-5 transition-colors ${
-                inWishlist
-                  ? 'fill-error text-error'
-                  : 'text-neutral-700 hover:text-error'
-              }`}
-            />
-          </button>
+          {/* Action Buttons */}
+          <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+            <CompareButton listing={listing} variant="icon" />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                toggleWishlist(listing.id);
+              }}
+              className="rounded-full bg-white p-2 shadow-md transition-all hover:bg-neutral-50"
+              aria-label="Add to wishlist"
+            >
+              <Heart
+                className={`h-5 w-5 transition-colors ${
+                  inWishlist
+                    ? 'fill-error text-error'
+                    : 'text-neutral-700 hover:text-error'
+                }`}
+              />
+            </button>
+          </div>
         </div>
 
         {/* Content */}

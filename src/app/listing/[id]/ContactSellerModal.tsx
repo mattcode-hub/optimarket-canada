@@ -1,21 +1,30 @@
 'use client';
 
 import { useState } from 'react';
-import { X } from 'lucide-react';
+import Link from 'next/link';
+import { X, MessageSquare } from 'lucide-react';
+import { useMessages } from '@/context/MessageContext';
 
 interface ContactSellerModalProps {
   isOpen: boolean;
   onClose: () => void;
   sellerName: string;
+  sellerAvatar?: string;
   productTitle: string;
+  listingId: string;
+  listingImage: string;
 }
 
 export default function ContactSellerModal({
   isOpen,
   onClose,
   sellerName,
+  sellerAvatar = 'https://api.dicebear.com/7.x/avataaars/svg?seed=seller',
   productTitle,
+  listingId,
+  listingImage,
 }: ContactSellerModalProps) {
+  const { createConversation } = useMessages();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,6 +32,7 @@ export default function ContactSellerModal({
     message: `Hi, I'm interested in your ${productTitle}...`,
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -35,8 +45,23 @@ export default function ContactSellerModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // MVP: Just show success
+
+    // Create conversation with the seller
+    const convId = createConversation(
+      `seller_${listingId}`,
+      sellerName,
+      sellerAvatar,
+      listingId,
+      productTitle,
+      listingImage,
+      formData.message,
+      'user_current',
+      formData.name
+    );
+
+    setConversationId(convId);
     setIsSubmitted(true);
+
     setTimeout(() => {
       onClose();
       setIsSubmitted(false);
@@ -46,7 +71,8 @@ export default function ContactSellerModal({
         phone: '',
         message: `Hi, I'm interested in your ${productTitle}...`,
       });
-    }, 2000);
+      setConversationId(null);
+    }, 2500);
   };
 
   return (
@@ -83,27 +109,23 @@ export default function ContactSellerModal({
           {/* Content */}
           {isSubmitted ? (
             <div className="flex flex-col items-center justify-center px-6 py-12">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                <svg
-                  className="h-6 w-6 text-green-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary-100">
+                <MessageSquare className="h-6 w-6 text-primary-600" />
               </div>
               <p className="text-center font-medium text-neutral-900">
                 Message sent!
               </p>
-              <p className="mt-1 text-center text-sm text-neutral-600">
-                The seller will receive your message shortly.
+              <p className="mt-1 text-center text-sm text-neutral-600 mb-6">
+                Your message has been added to your conversations.
               </p>
+              {conversationId && (
+                <Link
+                  href="/messages"
+                  className="inline-flex items-center justify-center rounded-lg bg-primary-500 px-4 py-2 font-medium text-white transition-colors hover:bg-primary-600"
+                >
+                  View Conversation
+                </Link>
+              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="px-6 py-4">

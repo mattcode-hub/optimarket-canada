@@ -132,12 +132,12 @@ export default function MessagesPage() {
       </div>
 
       {/* Main Messages Layout */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 h-[calc(100vh-250px)]">
         {/* Thread List */}
         <div className="lg:col-span-1">
-          <div className="rounded-lg bg-white shadow-sm">
+          <div className="rounded-xl bg-white shadow-sm border border-neutral-100 flex flex-col h-full">
             {/* Search */}
-            <div className="border-b border-neutral-200 p-4">
+            <div className="border-b border-neutral-200 p-4 flex-shrink-0">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-neutral-400" />
                 <input
@@ -145,20 +145,20 @@ export default function MessagesPage() {
                   placeholder="Search conversations..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-300 bg-white py-2 pl-10 pr-4 text-sm placeholder-neutral-500 focus:border-secondary-500 focus:outline-none"
+                  className="w-full rounded-lg border border-neutral-300 bg-white py-2 pl-10 pr-4 text-sm placeholder-neutral-500 focus:border-primary-500 focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Thread List */}
-            <div className="divide-y divide-neutral-200">
+            <div className="divide-y divide-neutral-200 overflow-y-auto flex-1">
               {filteredThreads.map((thread) => (
                 <button
                   key={thread.id}
                   onClick={() => setSelectedThread(thread.id)}
                   className={`w-full px-4 py-4 text-left transition-colors ${
                     selectedThread === thread.id
-                      ? 'bg-secondary-50'
+                      ? 'bg-primary-50 border-l-4 border-primary-600'
                       : 'hover:bg-neutral-50'
                   }`}
                 >
@@ -170,7 +170,7 @@ export default function MessagesPage() {
                         className="h-10 w-10 rounded-full object-cover"
                       />
                       {thread.unread && (
-                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-secondary-500" />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-primary-500" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -205,7 +205,7 @@ export default function MessagesPage() {
         {/* Message Conversation */}
         <div className="lg:col-span-2">
           {selectedThreadData ? (
-            <div className="flex flex-col rounded-lg bg-white shadow-sm">
+            <div className="flex flex-col rounded-xl bg-white shadow-sm border border-neutral-100 h-full">
               {/* Conversation Header */}
               <div className="border-b border-neutral-200 px-6 py-4">
                 <div className="flex items-center gap-3">
@@ -233,7 +233,7 @@ export default function MessagesPage() {
                     <div
                       className={`max-w-xs rounded-lg px-4 py-2 ${
                         msg.sender === 'seller'
-                          ? 'bg-secondary-600 text-white'
+                          ? 'bg-primary-600 text-white'
                           : 'bg-neutral-100 text-neutral-900'
                       }`}
                     >
@@ -241,7 +241,7 @@ export default function MessagesPage() {
                       <p
                         className={`mt-1 text-xs ${
                           msg.sender === 'seller'
-                            ? 'text-secondary-100'
+                            ? 'text-primary-100'
                             : 'text-neutral-500'
                         }`}
                       >
@@ -253,21 +253,21 @@ export default function MessagesPage() {
               </div>
 
               {/* Message Input */}
-              <div className="border-t border-neutral-200 p-6">
+              <div className="border-t border-neutral-200 p-6 flex-shrink-0">
                 <div className="flex gap-3">
                   <input
                     type="text"
                     placeholder="Type your message..."
-                    className="flex-1 rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm placeholder-neutral-500 focus:border-secondary-500 focus:outline-none"
+                    className="flex-1 rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm placeholder-neutral-500 focus:border-primary-500 focus:outline-none"
                   />
-                  <button className="rounded-lg bg-secondary-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-secondary-700">
+                  <button className="rounded-lg bg-primary-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-primary-700">
                     Send
                   </button>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-lg bg-white py-16 shadow-sm">
+            <div className="flex flex-col items-center justify-center rounded-xl bg-white shadow-sm border border-neutral-100 h-full">
               <MessageCircle className="h-12 w-12 text-neutral-300" />
               <p className="mt-4 text-neutral-600">Select a conversation to view messages</p>
             </div>

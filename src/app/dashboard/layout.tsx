@@ -42,7 +42,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="flex min-h-screen bg-neutral-50">
         {/* Sidebar */}
         <div
-          className={`fixed left-0 top-16 z-40 h-[calc(100vh-64px)] w-64 bg-white shadow-md transition-transform duration-300 lg:relative lg:top-0 lg:translate-x-0 ${
+          className={`fixed left-0 top-16 z-40 h-[calc(100vh-64px)] w-64 bg-white shadow-md border-r border-neutral-200 transition-transform duration-300 lg:relative lg:top-0 lg:translate-x-0 ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
@@ -55,9 +55,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 <Link
                   key={href}
                   href={href}
-                  className={`flex items-center gap-3 rounded-lg px-4 py-3 font-medium transition-colors ${
+                  className={`flex items-center gap-3 rounded-lg px-4 py-3 font-medium transition-all ${
                     isActive(href)
-                      ? 'bg-secondary-100 text-secondary-700'
+                      ? 'bg-primary-50 text-primary-700 border-l-4 border-primary-600'
                       : 'text-neutral-700 hover:bg-neutral-100'
                   }`}
                 >
@@ -75,7 +75,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex items-center justify-between border-b border-neutral-200 bg-white px-4 py-4 lg:hidden">
             <Link
               href="/"
-              className="flex items-center gap-2 text-sm font-semibold text-secondary-600 hover:text-secondary-700"
+              className="flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700"
             >
               <ChevronLeft className="h-4 w-4" />
               Back to Marketplace
@@ -92,7 +92,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="hidden border-b border-neutral-200 bg-white px-6 py-4 lg:block">
             <Link
               href="/"
-              className="flex items-center gap-2 text-sm font-semibold text-secondary-600 hover:text-secondary-700"
+              className="flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700"
             >
               <ChevronLeft className="h-4 w-4" />
               Back to Marketplace

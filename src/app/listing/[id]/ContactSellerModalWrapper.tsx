@@ -5,12 +5,18 @@ import ContactSellerModal from './ContactSellerModal';
 
 interface ContactSellerModalWrapperProps {
   sellerName: string;
+  sellerAvatar?: string;
   productTitle: string;
+  listingId: string;
+  listingImage: string;
 }
 
 export default function ContactSellerModalWrapper({
   sellerName,
+  sellerAvatar,
   productTitle,
+  listingId,
+  listingImage,
 }: ContactSellerModalWrapperProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,7 +32,10 @@ export default function ContactSellerModalWrapper({
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         sellerName={sellerName}
+        sellerAvatar={sellerAvatar}
         productTitle={productTitle}
+        listingId={listingId}
+        listingImage={listingImage}
       />
     </>
   );

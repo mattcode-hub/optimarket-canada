@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Share2, Heart, MapPin, Truck, Shield, Clock, BadgeCheck, ExternalLink } from 'lucide-react';
+import { MapPin, Truck, Shield, Clock, BadgeCheck, ExternalLink, Share2 } from 'lucide-react';
 import { Breadcrumb, ProductGrid } from '@/components';
 import { getListingById, getRelatedListings, getAllListings, formatPrice, formatDate } from '@/lib';
 import ImageGallery from './ImageGallery';
 import ContactSellerModalWrapper from './ContactSellerModalWrapper';
+import ListingClientWrapper from './ListingClientWrapper';
 
 interface ListingPageProps {
   params: Promise<{ id: string }>;
@@ -53,16 +54,10 @@ export default async function ListingPage({ params }: ListingPageProps) {
           <div className="lg:col-span-1">
             {/* Title & Condition */}
             <div className="mb-6">
-              <div className="mb-3 flex items-start gap-2">
-                <h1 className="flex-1 text-2xl font-bold text-neutral-900">
+              <div className="mb-3">
+                <h1 className="text-2xl font-bold text-neutral-900">
                   {listing.title}
                 </h1>
-                <button
-                  className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
-                  title="Share listing"
-                >
-                  <Share2 className="h-5 w-5" />
-                </button>
               </div>
               <div className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${conditionColors[listing.condition]}`}>
                 {listing.condition}
@@ -163,7 +158,10 @@ export default async function ListingPage({ params }: ListingPageProps) {
               <div className="space-y-2">
                 <ContactSellerModalWrapper
                   sellerName={listing.seller.name}
+                  sellerAvatar={listing.seller.avatar}
                   productTitle={listing.title}
+                  listingId={listing.id}
+                  listingImage={listing.images[0]}
                 />
                 <button className="w-full rounded-lg border border-primary-600 px-4 py-2 font-medium text-primary-600 transition-colors hover:bg-primary-50 active:bg-primary-100 flex items-center justify-center gap-2">
                   <ExternalLink className="h-4 w-4" />
@@ -172,11 +170,8 @@ export default async function ListingPage({ params }: ListingPageProps) {
               </div>
             </div>
 
-            {/* Save to Wishlist */}
-            <button className="w-full rounded-lg border border-neutral-300 px-4 py-2 font-medium text-neutral-700 transition-colors hover:bg-neutral-50 active:bg-neutral-100 flex items-center justify-center gap-2">
-              <Heart className="h-5 w-5" />
-              Save to Wishlist
-            </button>
+            {/* Client-side Actions */}
+            <ListingClientWrapper listing={listing} />
           </div>
         </div>
 

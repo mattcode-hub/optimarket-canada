@@ -53,7 +53,7 @@ export default function SettingsPage() {
       )}
 
       {/* Notifications Settings */}
-      <div className="rounded-lg bg-white shadow-sm">
+      <div className="rounded-xl bg-white shadow-sm border border-neutral-100">
         <div className="border-b border-neutral-200 px-6 py-4">
           <div className="flex items-center gap-3">
             <Bell className="h-5 w-5 text-neutral-600" />
@@ -98,7 +98,7 @@ export default function SettingsPage() {
                 onClick={() => handleToggle(key as keyof typeof settings)}
                 className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
                   settings[key as keyof typeof settings]
-                    ? 'bg-secondary-600'
+                    ? 'bg-primary-600'
                     : 'bg-neutral-300'
                 }`}
               >
@@ -131,7 +131,7 @@ export default function SettingsPage() {
             <select
               value={settings.profileVisibility}
               onChange={(e) => handleChange('profileVisibility', e.target.value)}
-              className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 focus:border-secondary-500 focus:outline-none"
+              className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-neutral-900 focus:border-primary-500 focus:outline-none"
             >
               <option value="public">Public - Everyone can view</option>
               <option value="buyers">Buyers Only - Only registered buyers</option>
@@ -147,7 +147,7 @@ export default function SettingsPage() {
             <button
               onClick={() => handleToggle('publicProfile')}
               className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
-                settings.publicProfile ? 'bg-secondary-600' : 'bg-neutral-300'
+                settings.publicProfile ? 'bg-primary-600' : 'bg-neutral-300'
               }`}
             >
               <span
@@ -178,7 +178,7 @@ export default function SettingsPage() {
             <button
               onClick={() => handleToggle('twoFactorAuth')}
               className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
-                settings.twoFactorAuth ? 'bg-secondary-600' : 'bg-neutral-300'
+                settings.twoFactorAuth ? 'bg-primary-600' : 'bg-neutral-300'
               }`}
             >
               <span
@@ -220,7 +220,7 @@ export default function SettingsPage() {
       <div className="flex gap-4">
         <button
           onClick={handleSave}
-          className="rounded-lg bg-secondary-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-secondary-700"
+          className="rounded-lg bg-primary-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-primary-700"
         >
           Save Settings
         </button>

@@ -2,14 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Heart, User, ShoppingBag, Menu, X, Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Heart, User, ShoppingBag, Menu, X, Search, LogOut, Settings, Store, MessageSquare } from 'lucide-react';
 import { useWishlist } from '@/context/WishlistContext';
+import { useAuth } from '@/context/AuthContext';
+import { useMessages } from '@/context/MessageContext';
 
 export default function Header() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { wishlistCount } = useWishlist();
+  const { user, isAuthenticated, logout, isLoading } = useAuth();
+  const { unreadCount } = useMessages();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +90,21 @@ export default function Header() {
           </div>
 
           {/* Right Icons */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-3 sm:gap-4 relative">
+            {/* Messages */}
+            <Link
+              href="/messages"
+              className="relative rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-primary-500"
+              aria-label="Messages"
+            >
+              <MessageSquare className="h-5 w-5" />
+              {unreadCount > 0 && (
+                <span className="absolute right-1 top-1 h-4 w-4 rounded-full bg-error text-xs font-bold text-white flex items-center justify-center">
+                  {unreadCount}
+                </span>
+              )}
+            </Link>
+
             {/* Wishlist */}
             <Link
               href="/wishlist"
@@ -97,15 +119,6 @@ export default function Header() {
               )}
             </Link>
 
-            {/* Account */}
-            <Link
-              href="/account"
-              className="rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-primary-500"
-              aria-label="Account"
-            >
-              <User className="h-5 w-5" />
-            </Link>
-
             {/* Saved Items */}
             <Link
               href="/saved"
@@ -117,6 +130,111 @@ export default function Header() {
                 0
               </span>
             </Link>
+
+            {/* Auth Section */}
+            {!isLoading && (
+              <>
+                {isAuthenticated && user ? (
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className="flex items-center gap-2 rounded-lg p-2 text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-primary-500 md:gap-3"
+                      aria-label="Account menu"
+                    >
+                      <div className="h-6 w-6 rounded-full bg-primary-500 text-white text-xs font-bold flex items-center justify-center hidden sm:flex">
+                        {user.avatar}
+                      </div>
+                      <User className="h-5 w-5 sm:hidden" />
+                      <span className="hidden sm:inline text-sm font-medium text-neutral-700">{user.name.split(' ')[0]}</span>
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    {isDropdownOpen && (
+                      <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-neutral-200 overflow-hidden z-50">
+                        <div className="p-4 border-b border-neutral-200 bg-neutral-50">
+                          <p className="font-semibold text-neutral-900">{user.name}</p>
+                          <p className="text-xs text-neutral-600">{user.email}</p>
+                          {user.isSeller && (
+                            <div className="flex items-center gap-1 mt-2">
+                              <Store className="h-3 w-3 text-primary-500" />
+                              <span className="text-xs font-medium text-primary-500">Verified Seller</span>
+                            </div>
+                          )}
+                        </div>
+
+                        <nav className="py-2">
+                          <Link
+                            href="/auth/profile"
+                            className="flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                            onClick={() => setIsDropdownOpen(false)}
+                          >
+                            <User className="h-4 w-4" />
+                            My Profile
+                          </Link>
+                          <Link
+                            href="/messages"
+                            className="flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                            onClick={() => setIsDropdownOpen(false)}
+                          >
+                            <MessageSquare className="h-4 w-4" />
+                            Messages
+                            {unreadCount > 0 && (
+                              <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-error text-xs font-bold text-white">
+                                {unreadCount}
+                              </span>
+                            )}
+                          </Link>
+                          <Link
+                            href="/wishlist"
+                            className="flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                            onClick={() => setIsDropdownOpen(false)}
+                          >
+                            <Heart className="h-4 w-4" />
+                            My Wishlist
+                          </Link>
+                          {user.isSeller && (
+                            <Link
+                              href="/dashboard"
+                              className="flex items-center gap-3 px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                              onClick={() => setIsDropdownOpen(false)}
+                            >
+                              <Store className="h-4 w-4" />
+                              Seller Dashboard
+                            </Link>
+                          )}
+                          <button
+                            onClick={() => {
+                              logout();
+                              setIsDropdownOpen(false);
+                              router.push('/');
+                            }}
+                            className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors border-t border-neutral-200"
+                          >
+                            <LogOut className="h-4 w-4" />
+                            Sign Out
+                          </button>
+                        </nav>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Link
+                      href="/auth/login"
+                      className="hidden sm:block px-4 py-2 rounded-lg text-sm font-medium text-primary-500 hover:bg-primary-50 transition-colors"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/auth/signup"
+                      className="px-4 py-2 rounded-lg bg-primary-500 text-white text-sm font-medium hover:bg-primary-600 transition-colors"
+                    >
+                      Sign Up
+                    </Link>
+                  </div>
+                )}
+              </>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -148,6 +266,83 @@ export default function Header() {
                 </Link>
               ))}
             </nav>
+
+            {/* Mobile Auth Section */}
+            {!isLoading && (
+              <>
+                {isAuthenticated && user ? (
+                  <>
+                    <div className="mt-4 px-4 py-4 border-t border-neutral-200">
+                      <div className="mb-4">
+                        <p className="font-semibold text-neutral-900">{user.name}</p>
+                        <p className="text-xs text-neutral-600">{user.email}</p>
+                      </div>
+                      <nav className="flex flex-col gap-2">
+                        <Link
+                          href="/auth/profile"
+                          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <User className="h-4 w-4" />
+                          My Profile
+                        </Link>
+                        <Link
+                          href="/messages"
+                          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <MessageSquare className="h-4 w-4" />
+                          Messages
+                          {unreadCount > 0 && (
+                            <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-error text-xs font-bold text-white">
+                              {unreadCount}
+                            </span>
+                          )}
+                        </Link>
+                        {user.isSeller && (
+                          <Link
+                            href="/dashboard"
+                            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <Store className="h-4 w-4" />
+                            Seller Dashboard
+                          </Link>
+                        )}
+                        <button
+                          onClick={() => {
+                            logout();
+                            setIsOpen(false);
+                            router.push('/');
+                          }}
+                          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors text-left"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          Sign Out
+                        </button>
+                      </nav>
+                    </div>
+                  </>
+                ) : (
+                  <div className="mt-4 px-4 py-4 border-t border-neutral-200 flex flex-col gap-3">
+                    <Link
+                      href="/auth/login"
+                      className="w-full px-4 py-2 rounded-lg text-sm font-medium text-primary-500 border border-primary-500 text-center hover:bg-primary-50 transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/auth/signup"
+                      className="w-full px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary-500 text-center hover:bg-primary-600 transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </div>
+                )}
+              </>
+            )}
 
             {/* Mobile Search */}
             <div className="mt-4 px-4">

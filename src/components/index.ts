@@ -25,3 +25,12 @@ export { default as Badge } from './Badge';
 export { default as Breadcrumb } from './Breadcrumb';
 export { default as Pagination } from './Pagination';
 export { default as EmptyState } from './EmptyState';
+
+// Toast & Notifications
+export { default as Toast } from './Toast';
+export { default as ToastContainer } from './ToastContainer';
+
+// Compare & Recent Features
+export { default as CompareButton } from './CompareButton';
+export { default as FloatingCompareBar } from './FloatingCompareBar';
+export { default as SearchAutocomplete } from './SearchAutocomplete';
