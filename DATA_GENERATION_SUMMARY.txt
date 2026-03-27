@@ -1,0 +1,102 @@
+OPTOMETRY MARKETPLACE DATA GENERATION SUMMARY
+=============================================
+
+Generated: March 27, 2026
+Script: /scripts/generate-data.js
+
+DATA FILES CREATED:
+===================
+
+1. listings.json (1,200 listings)
+   - 1,200 realistic optometry equipment listings
+   - Distributed across 8 categories:
+     * Diagnostic Equipment (152 listings)
+     * Frames & Lenses (148 listings)
+     * Trial Sets & Accessories (152 listings)
+     * Contact Lens Equipment (148 listings)
+     * Pre-Testing Instruments (152 listings)
+     * Furniture & Office (148 listings)
+     * Optical Lab Equipment (152 listings)
+     * Specialty & Low Vision (148 listings)
+   - Each listing includes:
+     * Unique ID and title with brand/model
+     * Realistic pricing ($50-$85,000 CAD)
+     * Original price (sometimes shown for savings)
+     * Condition (New, Like New, Excellent, Good, Fair)
+     * Detailed 2-4 sentence description
+     * 3 placeholder images (picsum.photos)
+     * Seller information with verification status
+     * Rating, review count, and join date
+     * Location (Canadian cities)
+     * Date posted (within last 90 days)
+     * Views and saves (realistic engagement)
+     * Featured status (~5% of listings)
+     * Shipping options and warranty information
+     * Real brand names and model numbers
+
+2. sellers.json (74 sellers)
+   - 74 unique seller profiles:
+     * ~35 clinic-based sellers
+     * ~28 equipment dealers
+     * ~10 individual OD practitioners
+   - 70% verified status
+   - Ratings: 3.5-5.0 (realistic distribution)
+   - Review counts: 3-200+ reviews
+   - Member since dates from 2014-2023
+   - Canadian locations represented
+   - Each with avatar, name, type, location
+
+3. reviews.json (500 reviews)
+   - 500 customer reviews distributed across sellers
+   - Ratings: 4 or 5 stars (realistic positive reviews)
+   - Realistic review text samples
+   - Verified reviews with reviewer names
+   - Dates within last year
+   - Average rating: 4.5 stars
+
+4. categories.json (8 categories)
+   - 8 main equipment categories with metadata
+   - 50+ total subcategories
+   - Category icons (Lucide icon names)
+   - Descriptions for each category
+   - Subcategory listings
+
+BRANDS INCLUDED:
+================
+Topcon, Nidek, Marco, Reichert, Huvitz, Lombart, Haag-Streit, Zeiss, 
+Keeler, Heine, Essilor, Leica, Heidelberg, Bausch & Lomb, Alcon, 
+Johnson & Johnson, Visionix, Optec, Rodenstock, Shamir
+
+EQUIPMENT TYPES:
+================
+- Diagnostic: Phoropters, Autorefractors, Lensmeters, Keratometers, 
+  Pachymeters, OCT Machines, Visual Field Analyzers, Fundus Cameras, 
+  Slit Lamps, Retinoscopes
+- Frames & Lenses: Frame Collections, Lens Blanks, Progressive/Photochromic 
+  Lenses, Lens Edgers, Frame Heaters, Displays
+- Trial Sets: Trial Lens Sets, Trial Frames, Flipper Bars, Occluders, 
+  Pupillometers, PD Rulers
+- Contact Lens: Topographers, Autokeratometers, Fitting Sets
+- Pre-Testing: Auto-Tonometers, NCT, Auto-Phoropters, Chart Projectors, 
+  Visual Acuity Systems
+- Furniture: Exam Chairs, Instrument Stands, Slit Lamp Tables, Waiting 
+  Room Furniture, Cabinetry
+- Lab Equipment: Lens Edgers, Blockers, Tinting Units, AR Coating, 
+  Lens Drills, Frame Warmers, Groovers
+- Specialty: Low Vision Aids, Magnifiers, Telescopic Systems, Electronic Aids
+
+CANADIAN CITIES:
+================
+Toronto, Vancouver, Calgary, Ottawa, Montreal, Edmonton, Winnipeg, Halifax, 
+Victoria, Hamilton, Quebec City, Saskatoon, Kingston, London, Windsor, 
+and 16+ others
+
+FILE SIZES:
+===========
+- listings.json: 1.7 MB
+- sellers.json: 30 KB
+- reviews.json: 114 KB
+- categories.json: 3.1 KB
+- TOTAL: 1.8 MB
+
+All data is generated and ready for use in the optometry marketplace application.

@@ -1,0 +1,124 @@
+[
+  {
+    "id": "diagnostic-equipment",
+    "name": "Diagnostic Equipment",
+    "icon": "Activity",
+    "description": "Browse our selection of diagnostic equipment equipment for optometry practices.",
+    "subcategories": [
+      "Phoropters",
+      "Autorefractors",
+      "Lensmeters",
+      "Keratometers",
+      "Pachymeters",
+      "OCT Machines",
+      "Visual Field Analyzers",
+      "Fundus Cameras",
+      "Slit Lamps",
+      "Retinoscopes"
+    ],
+    "listingCount": 150
+  },
+  {
+    "id": "frames-lenses",
+    "name": "Frames & Lenses",
+    "icon": "Eye",
+    "description": "Browse our selection of frames & lenses equipment for optometry practices.",
+    "subcategories": [
+      "Frame Collections",
+      "Lens Blanks",
+      "Progressive Lenses",
+      "Photochromic Lenses",
+      "Lens Edgers",
+      "Frame Heaters",
+      "Frame Displays"
+    ],
+    "listingCount": 150
+  },
+  {
+    "id": "trial-accessories",
+    "name": "Trial Sets & Accessories",
+    "icon": "Grid",
+    "description": "Browse our selection of trial sets & accessories equipment for optometry practices.",
+    "subcategories": [
+      "Trial Lens Sets",
+      "Trial Frames",
+      "Flipper Bars",
+      "Occluders",
+      "Pupillometers",
+      "PD Rulers"
+    ],
+    "listingCount": 150
+  },
+  {
+    "id": "contact-lens",
+    "name": "Contact Lens Equipment",
+    "icon": "Droplet",
+    "description": "Browse our selection of contact lens equipment equipment for optometry practices.",
+    "subcategories": [
+      "Topographers",
+      "Autokeratometers",
+      "Contact Lens Fitting Sets",
+      "Inventory",
+      "Trial Sets"
+    ],
+    "listingCount": 150
+  },
+  {
+    "id": "pre-testing",
+    "name": "Pre-Testing Instruments",
+    "icon": "Gauge",
+    "description": "Browse our selection of pre-testing instruments equipment for optometry practices.",
+    "subcategories": [
+      "Auto-Tonometers",
+      "NCT",
+      "Auto-Phoropters",
+      "Chart Projectors",
+      "Visual Acuity Systems"
+    ],
+    "listingCount": 150
+  },
+  {
+    "id": "furniture",
+    "name": "Furniture & Office",
+    "icon": "Home",
+    "description": "Browse our selection of furniture & office equipment for optometry practices.",
+    "subcategories": [
+      "Exam Chairs",
+      "Instrument Stands",
+      "Slit Lamp Tables",
+      "Waiting Room Furniture",
+      "Cabinetry",
+      "Storage Solutions"
+    ],
+    "listingCount": 150
+  },
+  {
+    "id": "lab-equipment",
+    "name": "Optical Lab Equipment",
+    "icon": "Wrench",
+    "description": "Browse our selection of optical lab equipment equipment for optometry practices.",
+    "subcategories": [
+      "Lens Edgers",
+      "Blockers",
+      "Tinting Units",
+      "AR Coating Systems",
+      "Lens Drills",
+      "Frame Warmers",
+      "Groovers"
+    ],
+    "listingCount": 150
+  },
+  {
+    "id": "specialty",
+    "name": "Specialty & Low Vision",
+    "icon": "Zap",
+    "description": "Browse our selection of specialty & low vision equipment for optometry practices.",
+    "subcategories": [
+      "Low Vision Aids",
+      "Magnifiers",
+      "Telescopic Systems",
+      "Electronic Aids"
+    ],
+    "listingCount": 150
+  }
+]
