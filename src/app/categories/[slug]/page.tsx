@@ -1,5 +1,5 @@
 import { Header, Footer, Breadcrumb, ProductGrid } from '@/components';
-import { getCategoryByName, searchListings } from '@/lib/data';
+import { getCategoryByName, searchListings, getAllCategories } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
@@ -11,6 +11,16 @@ interface CategoryPageProps {
     page?: string;
     subcategory?: string;
   };
+}
+
+export async function generateStaticParams() {
+  const categories = getAllCategories();
+  return categories.map((category) => ({
+    slug: category.name
+      .toLowerCase()
+      .split(' ')
+      .join('-'),
+  }));
 }
 
 export default function CategoryPage({

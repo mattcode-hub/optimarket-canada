@@ -101,6 +101,91 @@ const CONDITIONS = ['New', 'Like New', 'Excellent', 'Good', 'Fair'];
 const SHIPPING_OPTIONS = ['Free Shipping', 'Buyer Pays Shipping', 'Local Pickup Only', 'Shipping Available'];
 const WARRANTY_OPTIONS = ['Manufacturer Warranty', 'Seller Warranty (90 days)', 'As-Is', 'Extended Warranty Available'];
 
+// Curated Unsplash image URLs by category
+const CATEGORY_IMAGES = {
+  'Diagnostic Equipment': [
+    'https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1631549916768-4d8d7e0e1e4a?w=800&h=600&fit=crop',
+  ],
+  'Frames & Lenses': [
+    'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1577803645773-f96470509666?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1556015048-4d3aa10df74c?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1535930749574-1399327ce78f?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1612444530582-fc66f5b16c3d?w=800&h=600&fit=crop',
+  ],
+  'Trial Sets & Accessories': [
+    'https://images.unsplash.com/photo-1582719471384-894fbb16564e?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop',
+  ],
+  'Contact Lens Equipment': [
+    'https://images.unsplash.com/photo-1582719471384-894fbb16564e?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&h=600&fit=crop',
+  ],
+  'Pre-Testing Instruments': [
+    'https://images.unsplash.com/photo-1551190822-a9ce113d0d15?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1631549916768-4d8d7e0e1e4a?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1582719471384-894fbb16564e?w=800&h=600&fit=crop',
+  ],
+  'Furniture & Office': [
+    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1505409859467-3a796fd5a263?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1519219788971-8d9797e0928e?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop',
+  ],
+  'Optical Lab Equipment': [
+    'https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1582719471384-894fbb16564e?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1631549916768-4d8d7e0e1e4a?w=800&h=600&fit=crop',
+  ],
+  'Specialty & Low Vision': [
+    'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1582719471384-894fbb16564e?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&h=600&fit=crop',
+  ],
+};
+
 // Real equipment models
 const EQUIPMENT_MODELS = {
   'Topcon': [
@@ -254,6 +339,15 @@ function generateListings(sellers) {
       const id = `listing-${String(listingId).padStart(5, '0')}`;
       listingId++;
 
+      // Get category images
+      const categoryImages = CATEGORY_IMAGES[category.name] || CATEGORY_IMAGES['Diagnostic Equipment'];
+      const numImages = Math.floor(Math.random() * 3) + 3; // 3-5 images
+      const selectedImages = [];
+      for (let j = 0; j < numImages; j++) {
+        const randomIdx = (source * listingsPerSource + i + j) % categoryImages.length;
+        selectedImages.push(categoryImages[randomIdx]);
+      }
+
       const listing = {
         id,
         title: `${brandName} ${model} - ${subcategory} (${condition})`,
@@ -265,11 +359,7 @@ function generateListings(sellers) {
         category: category.name,
         subcategory,
         categoryId: category.id,
-        images: [
-          `https://picsum.photos/seed/${id}-1/600/400`,
-          `https://picsum.photos/seed/${id}-2/600/400`,
-          `https://picsum.photos/seed/${id}-3/600/400`
-        ],
+        images: selectedImages,
         seller: {
           id: seller.id,
           name: seller.name,
