@@ -5,14 +5,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, MapPin, Clock, BadgeCheck } from 'lucide-react';
 import { Listing } from '@/types';
+import { useWishlist } from '@/context/WishlistContext';
 
 interface ProductCardProps {
   listing: Listing;
 }
 
 export default function ProductCard({ listing }: ProductCardProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const [imageError, setImageError] = useState(false);
+  const inWishlist = isInWishlist(listing.id);
 
   const conditionColors: Record<string, string> = {
     'New': 'bg-success text-white',
@@ -83,14 +85,14 @@ export default function ProductCard({ listing }: ProductCardProps) {
           <button
             onClick={(e) => {
               e.preventDefault();
-              setIsWishlisted(!isWishlisted);
+              toggleWishlist(listing.id);
             }}
             className="absolute bottom-3 right-3 rounded-full bg-white p-2 shadow-md transition-all hover:bg-neutral-50"
             aria-label="Add to wishlist"
           >
             <Heart
               className={`h-5 w-5 transition-colors ${
-                isWishlisted
+                inWishlist
                   ? 'fill-error text-error'
                   : 'text-neutral-700 hover:text-error'
               }`}

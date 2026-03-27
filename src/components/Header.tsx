@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Heart, User, ShoppingBag, Menu, X, Search } from 'lucide-react';
+import { useWishlist } from '@/context/WishlistContext';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const { wishlistCount } = useWishlist();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -88,9 +90,11 @@ export default function Header() {
               aria-label="Wishlist"
             >
               <Heart className="h-5 w-5" />
-              <span className="absolute right-1 top-1 h-4 w-4 rounded-full bg-secondary-500 text-xs font-bold text-white flex items-center justify-center">
-                0
-              </span>
+              {wishlistCount > 0 && (
+                <span className="absolute right-1 top-1 h-4 w-4 rounded-full bg-secondary-500 text-xs font-bold text-white flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
             </Link>
 
             {/* Account */}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { WishlistProvider } from "@/context/WishlistContext";
 
 export const metadata: Metadata = {
   title: "OptiMarket Canada | Premium Optometry Equipment Marketplace",
@@ -20,7 +21,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased">
-        {children}
+        <WishlistProvider>
+          {children}
+        </WishlistProvider>
       </body>
     </html>
   );
